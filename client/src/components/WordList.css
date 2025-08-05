@@ -1,0 +1,379 @@
+/* Word List - Professional Design */
+.word-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #fafbfc;
+}
+
+/* Header Section */
+.word-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  gap: 20px;
+}
+
+.header-title h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 8px 0;
+}
+
+.word-count {
+  font-size: 1rem;
+  color: #718096;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Search Section */
+.search-section {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  font-size: 1.1rem;
+  z-index: 1;
+}
+
+.search-input {
+  padding: 12px 20px 12px 45px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 280px;
+  transition: all 0.3s ease;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #4a5568;
+  box-shadow: 0 0 0 2px rgba(74, 85, 104, 0.1);
+}
+
+.level-filter {
+  position: relative;
+}
+
+.level-select {
+  padding: 12px 20px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  min-width: 180px;
+}
+
+.level-select:focus {
+  outline: none;
+  border-color: #4a5568;
+  box-shadow: 0 0 0 2px rgba(74, 85, 104, 0.1);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #718096;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  margin: 0 0 10px 0;
+  color: #4a5568;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Words Container */
+.words-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* Word Card */
+.word-card {
+  background: white;
+  border-radius: 8px;
+  padding: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  position: relative;
+}
+
+.word-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Progress Bar */
+.progress-bar {
+  height: 3px;
+  background: #f7fafc;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+  background: #6c757d;
+}
+
+/* Word Main Content */
+.word-main {
+  padding: 18px;
+}
+
+.word-pair {
+  margin-bottom: 15px;
+}
+
+.word-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.word-text {
+  flex: 1;
+}
+
+.english-word {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 6px 0;
+  line-height: 1.2;
+}
+
+.hebrew-word {
+  font-size: 1.2rem;
+  color: #4a5568;
+  margin: 0;
+  direction: rtl;
+  text-align: right;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.listen-btn {
+  background: #6c757d;
+  border: none;
+  border-radius: 6px;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.listen-btn:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+
+
+
+
+/* Word Stats */
+.word-stats {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 18px 15px;
+  gap: 12px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #a0aec0;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: #f7fafc;
+  border: 2px solid currentColor;
+  min-width: 45px;
+  text-align: center;
+}
+
+
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+  .word-list {
+    padding: 15px;
+  }
+  
+  .word-list-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 25px;
+  }
+  
+  .header-title h1 {
+    font-size: 2rem;
+    text-align: center;
+  }
+  
+  .search-section {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .search-input {
+    width: 100%;
+  }
+  
+  .level-select {
+    width: 100%;
+  }
+  
+  .words-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .word-card {
+    margin: 0;
+  }
+  
+  .english-word {
+    font-size: 1.4rem;
+  }
+  
+  .hebrew-word {
+    font-size: 1.1rem;
+  }
+  
+  .word-main {
+    padding: 16px;
+  }
+  
+  .word-stats {
+    padding: 0 16px 12px;
+  }
+  
+
+  
+     .word-header {
+     align-items: center;
+   }
+   
+   .listen-btn {
+     width: 36px;
+     height: 36px;
+     font-size: 0.9rem;
+   }
+}
+
+@media (max-width: 480px) {
+  .header-title h1 {
+    font-size: 1.8rem;
+  }
+  
+  .search-input {
+    padding: 10px 15px 10px 40px;
+  }
+  
+  .search-icon {
+    left: 12px;
+  }
+  
+  .level-select {
+    padding: 10px 15px;
+  }
+  
+  .english-word {
+    font-size: 1.3rem;
+  }
+  
+  .hebrew-word {
+    font-size: 1rem;
+  }
+  
+  .word-main {
+    padding: 14px;
+  }
+  
+  .word-stats {
+    padding: 0 14px 12px;
+  }
+  
+     .word-header {
+     gap: 10px;
+   }
+   
+   .listen-btn {
+     width: 32px;
+     height: 32px;
+     font-size: 0.85rem;
+   }
+}
+
+/* Smooth animations */
+* {
+  box-sizing: border-box;
+}
+
+.word-card * {
+  transition: inherit;
+}
+
+/* Focus styles for accessibility */
+
+.search-input:focus,
+.level-select:focus {
+  outline: none;
+}

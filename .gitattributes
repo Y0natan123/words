@@ -1,0 +1,12 @@
+# Mark node_modules files as binary to prevent processing
+node_modules/** binary
+client/node_modules/** binary
+server/node_modules/** binary
+
+# Mark database files as binary
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
+
+# Mark log files as binary
+*.log binary 

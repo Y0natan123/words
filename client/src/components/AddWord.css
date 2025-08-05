@@ -1,0 +1,166 @@
+.add-word {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.add-word-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.add-word-header h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.add-word-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.add-word-form {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-row:last-of-type {
+  margin-bottom: 0;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+  color: white;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+  border-color: #117a8b;
+}
+
+.btn-info:disabled {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.ai-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ai-controls .btn {
+  width: 100%;
+}
+
+.suggestions {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.suggestions h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.suggestions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.suggestion-btn {
+  padding: 8px 12px;
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.suggestion-btn:hover {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.add-word-info {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.add-word-info h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.add-word-info ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.add-word-info li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  color: #666;
+}
+
+.add-word-info li:last-child {
+  border-bottom: none;
+}
+
+.add-word-info li:before {
+  content: "•";
+  color: #007bff;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Mobile responsive design */
+@media (max-width: 768px) {
+  .add-word-form {
+    padding: 20px;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .ai-controls {
+    flex-direction: column;
+  }
+  
+  .suggestions-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+  
+  .add-word-info {
+    padding: 15px;
+  }
+} 
