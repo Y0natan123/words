@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5001;
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? false // In production, same origin
+    ? [process.env.FRONTEND_URL || 'https://your-frontend-url.vercel.app'] // Use environment variable
     : ['http://localhost:3000', 'http://localhost:3001'], // Development origins
   credentials: true
 }));
@@ -22,7 +22,7 @@ app.use(express.json());
 
 // Session middleware
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'your-session-secret-here',
+  secret: process.env.SESSION_SECRET || process.env.JWT_SECRET || 'your-session-secret-here',
   resave: false,
   saveUninitialized: false,
   cookie: {
@@ -31,8 +31,6 @@ app.use(session({
     maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
   }
 }));
-
-app.use(express.static(path.join(__dirname, '../client/build')));
 
 // Import routes
 const wordsRoutes = require('./routes/words');
@@ -46,12 +44,10 @@ app.use('/api/language-pairs', languagePairsRoutes);
 app.use('/api/words', wordsRoutes);
 app.use('/api/ai', aiRoutes);
 
-// Serve React app for any other routes (only in production)
-if (process.env.NODE_ENV === 'production') {
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-  });
-}
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK', message: 'Server is running' });
+});
 
 // Initialize database and start server
 const startServer = async () => {
@@ -59,13 +55,18 @@ const startServer = async () => {
     await initDatabase();
     console.log('Database initialized successfully');
     
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
+    if (process.env.NODE_ENV !== 'production') {
+      app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+      });
+    }
   } catch (error) {
     console.error('Failed to initialize database:', error);
     process.exit(1);
   }
 };
 
-startServer(); 
+startServer();
+
+// Export for Vercel
+module.exports = app; 
