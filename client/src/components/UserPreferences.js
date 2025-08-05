@@ -18,11 +18,6 @@ const UserPreferences = ({ user, onPreferencesUpdate }) => {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    fetchLanguagePairs();
-    loadUserPreferences();
-  }, [fetchLanguagePairs, loadUserPreferences]);
-
   const fetchLanguagePairs = useCallback(async () => {
     try {
       const response = await axios.get('/api/language-pairs');
@@ -51,6 +46,11 @@ const UserPreferences = ({ user, onPreferencesUpdate }) => {
       setLoading(false);
     }
   }, [user]);
+
+  useEffect(() => {
+    fetchLanguagePairs();
+    loadUserPreferences();
+  }, [fetchLanguagePairs, loadUserPreferences]);
 
   const handleLanguagePairToggle = (pairId) => {
     const updatedPairs = preferences.selectedLanguagePairs.includes(pairId)

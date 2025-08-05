@@ -20,24 +20,6 @@ function App() {
   const [stats, setStats] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    checkAuthStatus();
-  }, [checkAuthStatus]);
-
-  useEffect(() => {
-    if (user) {
-      fetchLanguagePairs();
-      initializeUserData();
-    }
-  }, [user, fetchLanguagePairs, initializeUserData]);
-
-  useEffect(() => {
-    if (selectedLanguagePair && user) {
-      fetchWords();
-      fetchStats();
-    }
-  }, [selectedLanguagePair, user, fetchWords, fetchStats]);
-
   const checkAuthStatus = useCallback(async () => {
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
@@ -108,6 +90,24 @@ function App() {
       console.error('Error fetching stats:', error);
     }
   }, [selectedLanguagePair]);
+
+  useEffect(() => {
+    checkAuthStatus();
+  }, [checkAuthStatus]);
+
+  useEffect(() => {
+    if (user) {
+      fetchLanguagePairs();
+      initializeUserData();
+    }
+  }, [user, fetchLanguagePairs, initializeUserData]);
+
+  useEffect(() => {
+    if (selectedLanguagePair && user) {
+      fetchWords();
+      fetchStats();
+    }
+  }, [selectedLanguagePair, user, fetchWords, fetchStats]);
 
   const handleLogin = (userData) => {
     setUser(userData);

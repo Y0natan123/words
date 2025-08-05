@@ -85,7 +85,7 @@ const KnowledgeCheck = ({ words, onWordUpdated, onExit }) => {
   }, [words]);
 
   // Load words using spaced repetition algorithm
-  const loadSpacedRepetitionWords = async () => {
+  const loadSpacedRepetitionWords = useCallback(async () => {
     try {
       // Get settings from localStorage
       const savedSettings = localStorage.getItem('practiceSettings');
@@ -120,7 +120,7 @@ const KnowledgeCheck = ({ words, onWordUpdated, onExit }) => {
       // Fallback to old algorithm if spaced repetition fails
       return createFallbackPracticeSet(localWords);
     }
-  };
+  }, [localWords]);
 
   // Fallback algorithm (original smart practice set)
   const createFallbackPracticeSet = (words) => {
@@ -167,37 +167,9 @@ const KnowledgeCheck = ({ words, onWordUpdated, onExit }) => {
     };
     
     loadWords();
-  }, [localWords, currentWordIndex, practiceWords.length]);
+  }, [localWords, currentWordIndex, practiceWords.length, loadSpacedRepetitionWords]);
 
   const currentWord = practiceWords[currentWordIndex];
-
-  // Keyboard shortcuts for fast rating
-  useEffect(() => {
-    const handleKeyPress = (event) => {
-      if (showResult || isUpdating) return; // Don't handle keys during result screen or while updating
-      
-      if (event.code === 'Space') {
-        event.preventDefault();
-        if (speechSupported && currentWord) {
-          speakWord(currentWord.english);
-        }
-      } else if (event.code === 'Escape') {
-        onExit();
-      } else if (event.code >= 'Digit0' && event.code <= 'Digit5') {
-        // Handle number keys 0-5 for fast rating
-        event.preventDefault();
-        const level = parseInt(event.code.replace('Digit', ''));
-        handleFastRating(level);
-      } else if (event.code === 'KeyH') {
-        // H key to toggle Hebrew
-        event.preventDefault();
-        setShowHebrew(!showHebrew);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [showResult, isUpdating, speechSupported, currentWord, onExit, showHebrew, handleFastRating, speakWord]);
 
   // Manual speech synthesis function
   const speakWord = useCallback((word) => {
@@ -267,6 +239,34 @@ const KnowledgeCheck = ({ words, onWordUpdated, onExit }) => {
       alert('Failed to update progress. Please try again.');
     }
   }, [currentWord, isUpdating, onWordUpdated]);
+
+  // Keyboard shortcuts for fast rating
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (showResult || isUpdating) return; // Don't handle keys during result screen or while updating
+      
+      if (event.code === 'Space') {
+        event.preventDefault();
+        if (speechSupported && currentWord) {
+          speakWord(currentWord.english);
+        }
+      } else if (event.code === 'Escape') {
+        onExit();
+      } else if (event.code >= 'Digit0' && event.code <= 'Digit5') {
+        // Handle number keys 0-5 for fast rating
+        event.preventDefault();
+        const level = parseInt(event.code.replace('Digit', ''));
+        handleFastRating(level);
+      } else if (event.code === 'KeyH') {
+        // H key to toggle Hebrew
+        event.preventDefault();
+        setShowHebrew(!showHebrew);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [showResult, isUpdating, speechSupported, currentWord, onExit, showHebrew, handleFastRating, speakWord]);
 
   const handleNextWord = () => {
     if (currentWordIndex < practiceWords.length - 1) {
