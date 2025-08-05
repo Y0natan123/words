@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './UserPreferences.css';
 
@@ -21,18 +21,18 @@ const UserPreferences = ({ user, onPreferencesUpdate }) => {
   useEffect(() => {
     fetchLanguagePairs();
     loadUserPreferences();
-  }, []);
+  }, [fetchLanguagePairs, loadUserPreferences]);
 
-  const fetchLanguagePairs = async () => {
+  const fetchLanguagePairs = useCallback(async () => {
     try {
       const response = await axios.get('/api/language-pairs');
       setLanguagePairs(response.data);
     } catch (error) {
       console.error('Error fetching language pairs:', error);
     }
-  };
+  }, []);
 
-  const loadUserPreferences = () => {
+  const loadUserPreferences = useCallback(() => {
     try {
       const userPrefs = user.preferences || {};
       setPreferences({
@@ -50,7 +50,7 @@ const UserPreferences = ({ user, onPreferencesUpdate }) => {
       console.error('Error loading preferences:', error);
       setLoading(false);
     }
-  };
+  }, [user]);
 
   const handleLanguagePairToggle = (pairId) => {
     const updatedPairs = preferences.selectedLanguagePairs.includes(pairId)

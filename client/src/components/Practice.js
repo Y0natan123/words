@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './Practice.css';
 
@@ -167,7 +167,7 @@ const KnowledgeCheck = ({ words, onWordUpdated, onExit }) => {
     };
     
     loadWords();
-  }, [localWords]);
+  }, [localWords, currentWordIndex, practiceSet.length]);
 
   const currentWord = practiceWords[currentWordIndex];
 
@@ -197,10 +197,10 @@ const KnowledgeCheck = ({ words, onWordUpdated, onExit }) => {
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [showResult, isUpdating, speechSupported, currentWord, onExit, showHebrew]);
+  }, [showResult, isUpdating, speechSupported, currentWord, onExit, showHebrew, handleFastRating, speakWord]);
 
   // Manual speech synthesis function
-  const speakWord = (word) => {
+  const speakWord = useCallback((word) => {
     if (!speechSupported || !word) return;
     
     // Stop any current speech
@@ -213,9 +213,9 @@ const KnowledgeCheck = ({ words, onWordUpdated, onExit }) => {
     utterance.volume = 1;
     
     window.speechSynthesis.speak(utterance);
-  };
+  }, [speechSupported]);
 
-  const handleFastRating = async (level) => {
+  const handleFastRating = useCallback(async (level) => {
     if (!currentWord || isUpdating) {
       return;
     }
@@ -266,7 +266,7 @@ const KnowledgeCheck = ({ words, onWordUpdated, onExit }) => {
       setIsUpdating(false);
       alert('Failed to update progress. Please try again.');
     }
-  };
+  }, [currentWord, isUpdating, onWordUpdated]);
 
   const handleNextWord = () => {
     if (currentWordIndex < practiceWords.length - 1) {
@@ -285,10 +285,10 @@ const KnowledgeCheck = ({ words, onWordUpdated, onExit }) => {
 
 
 
-  const getLevelColor = (level) => {
-    const colors = ['#dc3545', '#fd7e14', '#ffc107', '#20c997', '#198754', '#0d6efd'];
-    return colors[Math.min(level, 5)];
-  };
+  // const getLevelColor = (level) => {
+  //   const colors = ['#dc3545', '#fd7e14', '#ffc107', '#20c997', '#198754', '#0d6efd'];
+  //   return colors[Math.min(level, 5)];
+  // };
 
   if (practiceWords.length === 0) {
     return (

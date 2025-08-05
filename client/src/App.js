@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import { apiUrl } from './config';
 import WordList from './components/WordList';
@@ -22,23 +22,23 @@ function App() {
 
   useEffect(() => {
     checkAuthStatus();
-  }, []);
+  }, [checkAuthStatus]);
 
   useEffect(() => {
     if (user) {
       fetchLanguagePairs();
       initializeUserData();
     }
-  }, [user]);
+  }, [user, fetchLanguagePairs, initializeUserData]);
 
   useEffect(() => {
     if (selectedLanguagePair && user) {
       fetchWords();
       fetchStats();
     }
-  }, [selectedLanguagePair, user]);
+  }, [selectedLanguagePair, user, fetchWords, fetchStats]);
 
-  const checkAuthStatus = async () => {
+  const checkAuthStatus = useCallback(async () => {
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
     
@@ -56,9 +56,9 @@ function App() {
       }
     }
     setLoading(false);
-  };
+  }, []);
 
-  const fetchLanguagePairs = async () => {
+  const fetchLanguagePairs = useCallback(async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/language-pairs`);
       setLanguagePairs(response.data);
@@ -75,9 +75,9 @@ function App() {
     } catch (error) {
       console.error('Error fetching language pairs:', error);
     }
-  };
+  }, [user]);
 
-  const initializeUserData = () => {
+  const initializeUserData = useCallback(() => {
     const userPrefs = user?.preferences || {};
     
     // If user has selected language pairs in preferences, use those
@@ -85,9 +85,9 @@ function App() {
       const defaultPair = userPrefs.defaultLanguagePair || userPrefs.selectedLanguagePairs[0];
       setSelectedLanguagePair(defaultPair);
     }
-  };
+  }, [user]);
 
-  const fetchWords = async () => {
+  const fetchWords = useCallback(async () => {
     if (!selectedLanguagePair) return;
     
     try {
@@ -96,9 +96,9 @@ function App() {
     } catch (error) {
       console.error('Error fetching words:', error);
     }
-  };
+  }, [selectedLanguagePair]);
 
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
     if (!selectedLanguagePair) return;
     
     try {
@@ -107,7 +107,7 @@ function App() {
     } catch (error) {
       console.error('Error fetching stats:', error);
     }
-  };
+  }, [selectedLanguagePair]);
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -136,10 +136,10 @@ function App() {
     }
   };
 
-  const handleWordAdded = (newWord) => {
-    setWords([...words, newWord]);
-    fetchStats();
-  };
+  // const handleWordAdded = (newWord) => {
+  //   setWords([...words, newWord]);
+  //   fetchStats();
+  // };
 
   const handleWordUpdated = (updatedWord) => {
     setWords(words.map(word => word.id === updatedWord.id ? updatedWord : word));

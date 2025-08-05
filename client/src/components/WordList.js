@@ -6,16 +6,16 @@ const WordList = ({ words, onWordUpdated, onWordDeleted }) => {
   const [filterText, setFilterText] = useState('');
   const [filterLevel, setFilterLevel] = useState('');
 
-  const updateProgress = async (wordId, newLevel) => {
-    try {
-      const response = await axios.post(`/api/words/${wordId}/progress`, {
-        userLevel: newLevel
-      });
-      onWordUpdated(response.data);
-    } catch (error) {
-      console.error('Error updating progress:', error);
-    }
-  };
+  // const updateProgress = async (wordId, newLevel) => {
+  //   try {
+  //     const response = await axios.post(`/api/words/${wordId}/progress`, {
+  //     userLevel: newLevel
+  //   });
+  //   onWordUpdated(response.data);
+  // } catch (error) {
+  //   console.error('Error updating progress:', error);
+  // }
+  // };
 
   const getLevelColor = (level) => {
     const colors = ['#dc3545', '#fd7e14', '#ffc107', '#20c997', '#198754', '#0d6efd'];
