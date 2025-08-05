@@ -616,6 +616,11 @@ const FlashCards = ({ words, onWordUpdated, onExit }) => {
           ></div>
         </div>
         <span className="progress-text">{currentWordIndex + 1} / {practiceWords.length}</span>
+        <div className="session-stats">
+          <span>📊 {sessionStats.reviewed} reviewed</span>
+          <span>📈 {sessionStats.improved} improved</span>
+          <span>📉 {sessionStats.declined} declined</span>
+        </div>
       </div>
 
       <div className="flashcards-content">
