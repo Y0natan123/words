@@ -7,3 +7,4 @@ node_modules/
 *.log
 words.db
 .DS_Store 
+.vercel
