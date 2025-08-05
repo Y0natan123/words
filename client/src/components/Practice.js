@@ -167,7 +167,7 @@ const KnowledgeCheck = ({ words, onWordUpdated, onExit }) => {
     };
     
     loadWords();
-  }, [localWords, currentWordIndex, practiceSet.length]);
+  }, [localWords, currentWordIndex, practiceWords.length]);
 
   const currentWord = practiceWords[currentWordIndex];
 
